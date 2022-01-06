@@ -1,0 +1,61 @@
+field= [[""]*3 for i in range(3)]
+
+def pole():
+    print(f" 0 1 2")
+    for i in range(3):
+        need= " ".join(field[i])
+        print(f"{i} {need}")
+def hod():
+    while True:
+        x,y=map(int,input("куда сходить?:").split())
+        if 0>x or x>2 or 0>y or y>2:
+            print("ход вне поля")
+            continue
+        if field[x][y] !="":
+            print("клетка занята")
+            continue
+
+        return x, y
+def win():
+    win_cord = (((0, 0), (0, 1), (0, 2)), ((1, 0), (1, 1), (1, 2)), ((2, 0), (2, 1), (2, 2)),
+                ((0, 2), (1, 1), (2, 0)), ((0, 0), (1, 1), (2, 2)), ((0, 0), (1, 0), (2, 0)),
+                ((0, 1), (1, 1), (2, 1)), ((0, 2), (1, 2), (2, 2)))
+    for cord in win_cord:
+        symbols = []
+        for c in cord:
+            symbols.append(field[c[0]][c[1]])
+        if symbols == ["X", "X", "X"]:
+            print("Выиграл X!!!")
+            return True
+        if symbols == ["0", "0", "0"]:
+            print("Выиграл 0!!!")
+            return True
+    return False
+
+n= 0
+while True:
+    n +=1
+    pole()
+    if n % 2 ==1:
+        print("ходит крестик")
+    else:
+        print("ходит нолик")
+
+    x, y= hod()
+    if n % 2 ==1:
+        field[x][y] ="X"
+    else:
+        field[x][y] ="0"
+    if win():
+        break
+    if n==9:
+        break
+        print("ничья")
+
+
+
+
+
+hod()
+win()
+
